@@ -1,0 +1,22 @@
+.currentKey {
+  background-color: #d4d4d4;
+}
+
+.blankKey {
+  background-color: white;
+}
+
+.correctKey {
+  background-color: #8be08b;
+}
+
+.incorrectKey {
+  background-color: #ffb1b1;
+}
+
+.word {
+  border-style: solid;
+  border-color: dodgerblue;
+}
+
+/*# sourceMappingURL=text.component.css.map */

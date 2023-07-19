@@ -1,0 +1,110 @@
+//*,::before,::after{
+//  padding: 0;
+//  margin: 0;
+//  box-sizing: border-box;
+//}
+//body{
+//  padding: relative;
+//  display: flex;
+//  min-height: 100vh;
+//  align-items: center;
+//  justify-content: center;
+//  font-family: "Arial", Helvetica, sans-serif;
+//  transition: all 500ms linear;
+//  background-color: #000;
+//}
+input{
+  display: none;
+}
+.base label{
+  display: inline-block;
+}
+.base {
+  position: relative;
+  transform: scale(0.7);
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(30, 28px);
+  grid-template-rows: repeat(4, 60px);
+  grid-gap: 5px;
+  //border-bottom: 3px solid #777;
+  border-radius: 10px;
+  background-color: #202020;
+}
+.key {
+  padding-top: 17px;
+  grid-column: span 2;
+  text-align: center;
+  font-size: 20px;
+  color: #000000;
+  cursor: pointer;
+  border-color: #666 #333 black #333;
+  border-style: solid;
+  border-width: 1px 2px 4px 2px;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+.key:active{
+  transform: translateY(2px) scale(0.98);
+  border-bottom-width: 2px;
+}
+.key:focus {
+  outline: none;
+  background-color: white;
+}
+
+
+.pressed {
+  border-color: #02c300;
+  //color: #02c300;
+  transform: translateY(2px) scale(0.98);
+  border-bottom-width: 2px;
+}
+.key.delete {
+  grid-column: span 6;
+}
+.key.tab {
+  grid-column: span 3;
+}
+.key.backslash {
+  grid-column: span 4;
+}
+.key.capslock {
+  grid-column: span 4;
+}
+.key.return {
+  grid-column: span 3;
+}
+.key.leftshift {
+  grid-column: span 5;
+}
+.key.rightshift {
+  grid-column: span 5;
+}
+.key.leftctrl {
+  grid-column: span 3;
+}
+.key.command {
+  grid-column: span 2;
+}
+.key.ctrl-r {
+  grid-column: span 2;
+}
+.key.gr {
+  grid-column: span 3;
+}
+.key.space {
+  grid-column: span 13;
+}
+#red:checked ~ .base .key{
+  color: #ff0000 !important;
+  border-color: #ff0000 !important;
+}
+#yellow:checked + .base .key{
+  color: #fbff00 !important;
+  border-color: #fbff00 !important;
+}
+#green:checked ~ .base .key{
+  color: #00ff00 !important;
+  border-color: #00ff00 !important;
+}

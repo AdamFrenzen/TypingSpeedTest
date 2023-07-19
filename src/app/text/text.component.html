@@ -1,0 +1,20 @@
+
+
+<div class="container-sm">
+  <div class="d-flex flex-wrap" style="justify-content: center">
+<!--    TODO: Make the words the columns rather than the letters-->
+
+    <div *ngFor="let word of words" class="p" style="background-color: #ffffff">
+
+      <div class="d-flex" style="padding-left: 0">
+        <div #letter *ngFor="let letter of word" class="p" style="padding-bottom: 0">
+          <p style="margin-bottom: 0">{{letter}}</p>
+        </div>
+        <p #letter style="margin-bottom: 0">&nbsp;</p>
+      </div>
+
+      </div>
+
+
+  </div>
+</div>

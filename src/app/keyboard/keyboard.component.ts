@@ -1,5 +1,5 @@
 import {
-  AfterViewInit, Component, HostListener, ViewChildren
+  Component, ElementRef, HostListener, QueryList, ViewChildren
 } from '@angular/core';
 
 import {KeyboardListenerService} from "../keyboard-listener.service";
@@ -9,8 +9,7 @@ import {KeyboardListenerService} from "../keyboard-listener.service";
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.scss']
 })
-
-export class KeyboardComponent implements AfterViewInit {
+export class KeyboardComponent {
 
   constructor(private keyboardListenerService: KeyboardListenerService) {
   }
@@ -50,29 +49,28 @@ export class KeyboardComponent implements AfterViewInit {
   }
 
   @ViewChildren('key')
-  keys: any = []
+  keys!: QueryList<ElementRef<HTMLElement>>
 
   async delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  keyPress(elem: HTMLElement, reset?: boolean) {
-
+  keyPress(elem: HTMLElement, reset?: boolean): string | void {
+    // explain WHY you're doing (not what you're doing)
     if (reset && elem.className.includes("key")) {
       if (elem.className.includes("pressed")) {
         return elem.className = elem.className.slice(0, elem.className.indexOf(" pressed"))
       }
-    } else if (!elem.className.includes("key")) {
-      return elem.className += " key"
+
+      return;
     }
+
+    if (!elem.className.includes("key")) {
+      return elem.className += " key";
+    }
+
     if (false === reset && !elem.className.includes("pressed")) {
       return elem.className += " pressed"
     }
-    return
   }
-
-  ngAfterViewInit() {
-    //  ViewChildRefs are loaded
-  }
-
 }

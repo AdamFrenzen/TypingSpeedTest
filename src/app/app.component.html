@@ -5,10 +5,29 @@
 <!--  </div>-->
 <!--</div>-->
 
-<div style="margin-top: 200px">
-  <app-text></app-text>
-</div>
+<!--<html>-->
+<!--  <div class="container-fluid darkmode" style="height: 100vh">-->
+<!--    <app-header class="darkmode"></app-header>-->
+<!--    <div class="darkmode" style="margin-top: 200px">-->
+<!--      <app-text class="darkmode"></app-text>-->
+<!--    </div>-->
 
-<div>
-  <app-keyboard></app-keyboard>
+<!--    <div class="darkmode">-->
+<!--      <app-keyboard class="darkmode"></app-keyboard>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</html>-->
+
+<html>
+<div [ngClass]="{'my_class': darkMode}" class="container-fluid darkmode" style="height: 100vh">
+  <app-header class=""></app-header>
+  <div class="" style="margin-top: 200px">
+    <app-text class=""></app-text>
+  </div>
+
+  <div class="">
+    <app-keyboard class=""></app-keyboard>
+  </div>
 </div>
+</html>
+

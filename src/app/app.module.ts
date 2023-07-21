@@ -8,12 +8,16 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
 import { TextComponent } from './text/text.component';
 
 import { KeyboardListenerService } from "./keyboard-listener.service";
+import { PromptComponent } from './prompt/prompt.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     KeyboardComponent,
-    TextComponent
+    TextComponent,
+    PromptComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

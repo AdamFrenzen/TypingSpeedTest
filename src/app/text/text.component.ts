@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnDestroy, OnInit, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {KeyboardListenerService} from "../keyboard-listener.service";
 import {Subscription} from "rxjs";
 
@@ -24,7 +24,7 @@ export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
   currentKey: string = ""
 
   @ViewChildren('letter')
-  letterElements: any = []
+  letterElements!: QueryList<ElementRef<HTMLElement>>
 
   enterKey(key: string) {
     if (key === "Space") {

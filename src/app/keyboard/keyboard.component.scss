@@ -29,20 +29,20 @@ input{
   grid-gap: 5px;
   //border-bottom: 3px solid #777;
   border-radius: 10px;
-  background-color: #202020;
 }
 .key {
   padding-top: 17px;
   grid-column: span 2;
   text-align: center;
   font-size: 20px;
-  color: #000000;
+  //color: #000000;
   cursor: pointer;
-  border-color: #666 #333 black #333;
+  //border-color: #666 #333 black #333;
+  //border-color: black;
   border-style: solid;
   border-width: 1px 2px 4px 2px;
   border-radius: 5px;
-  background-color: #ffffff;
+  //background-color: #ffffff;
 }
 .key:active{
   transform: translateY(2px) scale(0.98);
@@ -50,7 +50,7 @@ input{
 }
 .key:focus {
   outline: none;
-  background-color: white;
+  //background-color: white;
 }
 
 
@@ -95,16 +95,4 @@ input{
 }
 .key.space {
   grid-column: span 13;
-}
-#red:checked ~ .base .key{
-  color: #ff0000 !important;
-  border-color: #ff0000 !important;
-}
-#yellow:checked + .base .key{
-  color: #fbff00 !important;
-  border-color: #fbff00 !important;
-}
-#green:checked ~ .base .key{
-  color: #00ff00 !important;
-  border-color: #00ff00 !important;
 }

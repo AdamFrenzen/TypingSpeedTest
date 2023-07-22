@@ -19,7 +19,7 @@
 <!--</html>-->
 
 <html>
-<div [ngClass]="{'my_class': darkMode}" class="container-fluid darkmode" style="height: 100vh">
+<div [ngClass]="colorMode ? 'darkmode' : 'lightmode'" class="container-fluid darkmode" style="height: 100vh">
   <app-header class=""></app-header>
   <div class="" style="margin-top: 200px">
     <app-text class=""></app-text>

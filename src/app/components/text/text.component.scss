@@ -3,11 +3,6 @@
   background-color: #535353;
 }
 
-.blankKey {
-  //background-color: white;
-}
-
-
 //TODO: Change correct and incorrect key based off of dark or light mode and user variable
 .correctKey {
   background-color: #8be08b;
@@ -15,7 +10,7 @@
 }
 
 .incorrectKey {
-  background-color: #ffb1b1;
+  background-color: #ff8e8e;
   color: black
 }
 

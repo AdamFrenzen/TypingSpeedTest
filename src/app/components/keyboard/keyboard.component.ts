@@ -2,7 +2,7 @@ import {
   Component, ElementRef, HostListener, QueryList, ViewChildren
 } from '@angular/core';
 
-import {KeyboardListenerService} from "../keyboard-listener.service";
+import {KeyboardListenerService} from "../../services/keyboard-listener.service";
 
 @Component({
   selector: 'app-keyboard',
@@ -23,6 +23,7 @@ export class KeyboardComponent {
       let key = event.key
       if (" " === event.key) {
         key = "Space"
+        event.preventDefault() // Prevents checking and unchecking focused checkbox (i.e. dark mode switch)
       }
       if ("/" === event.key) {
         key = "?"

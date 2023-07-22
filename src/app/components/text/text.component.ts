@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
-import {KeyboardListenerService} from "../keyboard-listener.service";
+import {KeyboardListenerService} from "../../services/keyboard-listener.service";
 import {Subscription} from "rxjs";
 
 @Component({

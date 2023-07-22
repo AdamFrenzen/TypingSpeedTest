@@ -4,12 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { KeyboardComponent } from './keyboard/keyboard.component';
-import { TextComponent } from './text/text.component';
+import { KeyboardComponent } from './components/keyboard/keyboard.component';
+import { TextComponent } from './components/text/text.component';
 
-import { KeyboardListenerService } from "./keyboard-listener.service";
-import { PromptComponent } from './prompt/prompt.component';
-import { HeaderComponent } from './header/header.component';
+import { KeyboardListenerService } from "./services/keyboard-listener.service";
+import { PromptComponent } from './components/prompt/prompt.component';
+import { HeaderComponent } from './components/header/header.component';
+import {ColorModeService} from "./services/color-mode.service";
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { HeaderComponent } from './header/header.component';
     NgbModule,
     AppRoutingModule
   ],
-  providers: [KeyboardListenerService],
+  providers: [KeyboardListenerService, ColorModeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

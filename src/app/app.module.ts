@@ -11,6 +11,7 @@ import { KeyboardListenerService } from "./services/keyboard-listener.service";
 import { PromptComponent } from './components/prompt/prompt.component';
 import { HeaderComponent } from './components/header/header.component';
 import {ColorModeService} from "./services/color-mode.service";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import {ColorModeService} from "./services/color-mode.service";
   imports: [
     BrowserModule,
     NgbModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [KeyboardListenerService, ColorModeService],
   bootstrap: [AppComponent]

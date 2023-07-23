@@ -19,25 +19,30 @@ export class KeyboardComponent {
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
 
-    for (let element of this.keys.toArray()) {
-      let key = event.key
-      if (" " === event.key) {
-        key = "Space"
-        event.preventDefault() // Prevents checking and unchecking focused checkbox (i.e. dark mode switch)
-      }
-      if ("/" === event.key) {
-        key = "?"
-      }
-      if ("1" === event.key) {
-        key = "!"
-      }
-      if ("9" === event.key) {
-        key = "("
-      }
-      if ("0" === event.key) {
-        key = ")"
-      }
+    let key = event.key
+    if (" " === event.key) {
+      key = "Space"
+      event.preventDefault() // Prevents checking and unchecking focused checkbox (i.e. dark mode switch)
+    }
+    if ("Escape" === event.key) {
+      // TODO: fullscreen feature that hides the header and other things
+      // fullScreen = false
+    }
 
+    if ("/" === event.key) {
+      key = "?"
+    }
+    if ("1" === event.key) {
+      key = "!"
+    }
+    if ("9" === event.key) {
+      key = "("
+    }
+    if ("0" === event.key) {
+      key = ")"
+    }
+
+    for (let element of this.keys.toArray()) {
       if (key.toLowerCase() === element.nativeElement.innerText.toLowerCase()) {
         if ("keyup" === event.type) {
           this.keyboardListenerService.updateCurrentKey(key)

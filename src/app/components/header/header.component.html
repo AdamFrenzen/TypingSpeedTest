@@ -2,10 +2,44 @@
   <div class="col">
     <span style="margin: 10px; font-size: 34px">Coding Typing Speed Test</span>
   </div>
-  <div class="col-1" style="margin-top: 10px">
-    <label class="switch">
+  <div class="col" style="margin-top: 10px;">
+    <i class="fa-solid fa-gear" style="font-size: 34px; float: right" (click)="openModal(settingsModal)"></i>
+    <label class="switch" style="float: right; margin-right: 10px">
       <input type="checkbox" [checked]="colorMode" (click)="toggleColorMode()">
       <span class="slider round"></span>
     </label>
   </div>
 </div>
+
+<ng-template #settingsModal let-modal>
+  <div class="modal-header" style="padding: 2px 10px">
+    <h4 class="modal-title" id="modal-basic-title">Settings</h4>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body" style="padding: 2px 10px;">
+    <form [formGroup]="settingsForm">
+
+      <button class="button" type="submit">Purchase</button>
+
+    </form>
+
+    <div class="row">
+      <div class="col">
+        <p style="margin-left: 10px; margin-top: 10px;">Show keyboard<input class="form-check-input" type="checkbox" style="margin-top: 4px; margin-left: 20px" id="flexCheckChecked" checked></p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <p style="margin-left: 10px; margin-top: 10px;">Key press<input class="form-check-input" type="checkbox" style="margin-top: 4px; margin-left: 20px" id="flexCheckChecked" checked></p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" value="click to copy">Save changes</button>
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+

@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {Observable} from "rxjs";
 import {ColorModeService} from "../../services/color-mode.service";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,11 @@ export class HeaderComponent implements OnInit {
 
   colorMode: boolean = true
 
-  constructor(private service: ColorModeService) {
+  constructor(private service: ColorModeService, private modalService: NgbModal) {
+  }
+
+  openModal(modal: TemplateRef<HTMLElement>) {
+    this.modalService.open(modal);
   }
 
   toggleColorMode(): void {

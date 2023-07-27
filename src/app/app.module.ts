@@ -12,6 +12,7 @@ import { PromptComponent } from './components/prompt/prompt.component';
 import { HeaderComponent } from './components/header/header.component';
 import {ColorModeService} from "./services/color-mode.service";
 import {ReactiveFormsModule} from "@angular/forms";
+import {SettingsService} from "./services/settings.service";
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import {ReactiveFormsModule} from "@angular/forms";
     AppRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [KeyboardListenerService, ColorModeService],
+  providers: [KeyboardListenerService, ColorModeService, SettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

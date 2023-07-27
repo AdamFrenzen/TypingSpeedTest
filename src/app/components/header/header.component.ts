@@ -2,6 +2,7 @@ import {Component, Input, OnInit, TemplateRef} from '@angular/core';
 import {Observable} from "rxjs";
 import {ColorModeService} from "../../services/color-mode.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {FormControl, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class HeaderComponent implements OnInit {
 
   colorMode: boolean = true
+  settingsForm = new FormControl('');
 
   constructor(private service: ColorModeService, private modalService: NgbModal) {
   }
@@ -26,6 +28,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.service.setColorMode(this.colorMode)
+
   }
 
 }

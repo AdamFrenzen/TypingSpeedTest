@@ -17,26 +17,41 @@
     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body" style="padding: 2px 10px;">
-    <form [formGroup]="settingsForm">
+    <form [formControl]="settingsForm" style="padding: 0px 10px 10px 0">
 
-      <button class="button" type="submit">Purchase</button>
+      <p style="margin-left: 10px; margin-top: 10px;">Show keyboard:<input class="form-check-input" type="checkbox" style="margin-top: 4px; margin-left: 20px" checked></p>
 
+      <div class="toggle">
+
+      </div>
+
+      <div style="display: flex">
+        <p style="margin-left: 10px; margin-top: 5px; justify-content: space-between">Key press style:</p>
+
+        <div style="margin-left: 20px">
+          <input type="radio" class="btn-check" name="options" id="option1" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="option1" style="margin-right: 10px">Outline</label>
+
+          <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="option2">Fill</label>
+        </div>
+
+      </div>
+
+
+
+
+      <div style="display: flex">
+          <p style="margin-left: 10px; margin-bottom: 20px; justify-content: space-between">Key press color:</p>
+          <input type="color" style="margin-top: 0px; margin-left: 20px">
+      </div>
+
+      <button class="btn btn-primary" value="click to copy">Save changes</button>
     </form>
 
     <div class="row">
       <div class="col">
-        <p style="margin-left: 10px; margin-top: 10px;">Show keyboard<input class="form-check-input" type="checkbox" style="margin-top: 4px; margin-left: 20px" id="flexCheckChecked" checked></p>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col">
-        <p style="margin-left: 10px; margin-top: 10px;">Key press<input class="form-check-input" type="checkbox" style="margin-top: 4px; margin-left: 20px" id="flexCheckChecked" checked></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <button class="btn btn-primary" value="click to copy">Save changes</button>
       </div>
 
     </div>

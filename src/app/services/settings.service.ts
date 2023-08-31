@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Observable, Subject} from "rxjs";
 
 export interface Settings {
   "showKeyboard": string | null | undefined,

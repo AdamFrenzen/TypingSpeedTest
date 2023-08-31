@@ -13,6 +13,7 @@ import { HeaderComponent } from './components/header/header.component';
 import {ColorModeService} from "./services/color-mode.service";
 import {ReactiveFormsModule} from "@angular/forms";
 import {SettingsService} from "./services/settings.service";
+import { TimerComponent } from './components/timer/timer.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {SettingsService} from "./services/settings.service";
     KeyboardComponent,
     TextComponent,
     PromptComponent,
-    HeaderComponent
+    HeaderComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule,

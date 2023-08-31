@@ -54,6 +54,7 @@ export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
         letterElements[this.currentLetterIndex + 1].nativeElement.className = "p blankKey"
         letterElements[this.currentLetterIndex].nativeElement.className = "p currentKey"
       }
+
     } else {
       letterElements[this.currentLetterIndex].nativeElement.className = "p incorrectKey"
     }

@@ -44,8 +44,17 @@ export class KeyboardComponent {
 
     for (let element of this.keys.toArray()) {
       if (key.toLowerCase() === element.nativeElement.innerText.toLowerCase()) {
-        if ("keyup" === event.type) {
+        if (key.toLowerCase() === "backspace") {
+          if ("keydown" === event.type) {
+            this.keyboardListenerService.updateCurrentKey(key)
+            return this.keyPress(element.nativeElement, false)
+          }
+        }
+        else if ("keyup" === event.type) {
           this.keyboardListenerService.updateCurrentKey(key)
+          return this.keyPress(element.nativeElement, true)
+        }
+        if (key.toLowerCase() === "backspace") {
           return this.keyPress(element.nativeElement, true)
         }
         return this.keyPress(element.nativeElement, false)
@@ -62,7 +71,6 @@ export class KeyboardComponent {
   }
 
   keyPress(elem: HTMLElement, reset?: boolean): string | void {
-    // explain WHY you're doing (not what you're doing)
     if (reset && elem.className.includes("key")) {
       if (elem.className.includes("pressed")) {
         return elem.className = elem.className.slice(0, elem.className.indexOf(" pressed"))

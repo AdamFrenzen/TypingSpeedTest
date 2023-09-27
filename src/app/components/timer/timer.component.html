@@ -27,11 +27,14 @@
 <ng-template #scoreReport let-modal>
   <div class="modal-header" style="padding: 2px 10px">
     <h4 class="modal-title" id="modal-basic-title">Score Report:</h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-            (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" (click)="closeModal(modal)"></button>
   </div>
 
   <div class="modal-body" style="padding: 2px 10px;">
-   <p>WPM: {{WPM}} CPM: {{CPM}} ACC: {{ACC}}</p>
+     <p>WPM: {{WPM}}</p>
+     <p>CPM: {{CPM}}</p>
+     <p>ACC: {{ACC}}</p>
+    <button (click)="closeModal(modal)">Restart</button>
+<!--    VIEW CODE (HIDE MODAL) HOW TO RESTART THE APP THEN?-->
   </div>
 </ng-template>

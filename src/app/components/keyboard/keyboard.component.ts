@@ -3,6 +3,7 @@ import {
 } from '@angular/core';
 
 import {KeyboardListenerService} from "../../services/keyboard-listener.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-keyboard',
@@ -10,58 +11,78 @@ import {KeyboardListenerService} from "../../services/keyboard-listener.service"
   styleUrls: ['./keyboard.component.scss']
 })
 export class KeyboardComponent {
+  subscription: Subscription
 
   constructor(private keyboardListenerService: KeyboardListenerService) {
+    this.subscription = this.keyboardListenerService.getCurrentKey().subscribe(key => {
+      // Only iterate through the keys one time each call.
+      if ('keydown' === key.type) {
+        for (let element of this.keys.toArray()) {
+          if (element.nativeElement.innerText.toLowerCase() === key.text.toLowerCase()) {
+              this.keyPress(element.nativeElement, false)
+          }
+        }
+      } else {
+        for (let element of this.keys.toArray()) {
+          if (element.nativeElement.innerText.toLowerCase() === key.text.toLowerCase()) {
+            this.keyPress(element.nativeElement, true)
+          }
+        }
+      }
+    });
+  }
+  keyDelay() {
+    return new Promise(resolve => setTimeout(resolve, 100))
   }
 
   // @HostListener cannot be used in a service, will have to pass variables to service
-  @HostListener('window:keydown', ['$event'])
-  @HostListener('window:keyup', ['$event'])
-  keyEvent(event: KeyboardEvent) {
-
-    let key = event.key
-    if (" " === event.key) {
-      key = "Space"
-      event.preventDefault() // Prevents checking and unchecking focused checkbox (i.e. dark mode switch)
-    }
-    if ("Escape" === event.key) {
-      // TODO: fullscreen feature that hides the header and other things
-      // fullScreen = false
-    }
-
-    if ("/" === event.key) {
-      key = "?"
-    }
-    if ("1" === event.key) {
-      key = "!"
-    }
-    if ("9" === event.key) {
-      key = "("
-    }
-    if ("0" === event.key) {
-      key = ")"
-    }
-
-    for (let element of this.keys.toArray()) {
-      if (key.toLowerCase() === element.nativeElement.innerText.toLowerCase()) {
-        if (key.toLowerCase() === "backspace") {
-          if ("keydown" === event.type) {
-            this.keyboardListenerService.updateCurrentKey(key)
-            return this.keyPress(element.nativeElement, false)
-          }
-        }
-        else if ("keyup" === event.type) {
-          this.keyboardListenerService.updateCurrentKey(key)
-          return this.keyPress(element.nativeElement, true)
-        }
-        if (key.toLowerCase() === "backspace") {
-          return this.keyPress(element.nativeElement, true)
-        }
-        return this.keyPress(element.nativeElement, false)
-      }
-    }
-    return
-  }
+  // @HostListener('window:keydown', ['$event'])
+  // @HostListener('window:keyup', ['$event'])
+  // keyEvent(event: KeyboardEvent) {
+  //
+  //   let key = event.key
+  //   if (" " === event.key) {
+  //     key = "Space"
+  //     event.preventDefault() // Prevents checking and unchecking focused checkbox (i.e. dark mode switch)
+  //   }
+  //   if ("Escape" === event.key) {
+  //     // TODO: fullscreen feature that hides the header and other things
+  //     // fullScreen = false
+  //   }
+  //
+  //   if ("/" === event.key) {
+  //     key = "?"
+  //   }
+  //   if ("1" === event.key) {
+  //     key = "!"
+  //   }
+  //   if ("9" === event.key) {
+  //     key = "("
+  //   }
+  //   if ("0" === event.key) {
+  //     key = ")"
+  //   }
+  //
+  //   for (let element of this.keys.toArray()) {
+  //     if (key.toLowerCase() === element.nativeElement.innerText.toLowerCase()) {
+  //       if (key.toLowerCase() === "backspace") {
+  //         if ("keydown" === event.type) {
+  //           this.keyboardListenerService.updateCurrentKey(key)
+  //           return this.keyPress(element.nativeElement, false)
+  //         }
+  //       }
+  //       else if ("keyup" === event.type) {
+  //         this.keyboardListenerService.updateCurrentKey(key)
+  //         return this.keyPress(element.nativeElement, true)
+  //       }
+  //       if (key.toLowerCase() === "backspace") {
+  //         return this.keyPress(element.nativeElement, true)
+  //       }
+  //       return this.keyPress(element.nativeElement, false)
+  //     }
+  //   }
+  //   return
+  // }
 
   @ViewChildren('key')
   keys!: QueryList<ElementRef<HTMLElement>>

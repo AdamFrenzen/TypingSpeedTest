@@ -1,6 +1,7 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {KeyboardListenerService} from "../../services/keyboard-listener.service";
 import {Subscription} from "rxjs";
+import {CommunicatorService} from "../../services/communicator.service";
 
 @Component({
   selector: 'app-text',
@@ -10,14 +11,30 @@ import {Subscription} from "rxjs";
 export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
   subscription: Subscription
 
-  constructor(private keyListener: KeyboardListenerService) {
+  constructor(private keyListener: KeyboardListenerService, private communicator: CommunicatorService) {
     this.subscription = this.keyListener.getCurrentKey().subscribe(key => {
-      this.enterKey(key.text)
+      // backspace can be held down
+      if (key.text === 'Backspace') {
+        if (key.type === 'keydown') {
+          return this.enterKey(key.text)
+        }
+        return
+      }
+      if (key.type === 'keyup') {
+        return this.enterKey(key.text)
+      }
     });
+    // TODO: Add this to a subscription array
+    this.communicator.getResetState().subscribe(state => {
+      // TODO: This does not properly reset the text component
+      this.resetText()
+    })
   }
 
   paragraph: string =
-    "the quick brown fox jumped over the lazy dog"
+    "console:"
+
+
   words: string[][] = []
   letters: string[] = []
   currentLetterIndex: number = 0
@@ -30,6 +47,44 @@ export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('letter')
   letterElements!: QueryList<ElementRef<HTMLElement>>
 
+  initializeText() {
+
+    this.words = []
+    this.letters = []
+    this.currentLetterIndex = 0
+    this.currentKey = ""
+
+    // for WPM and accuracy statistics
+    this.totalChars = 0
+    this.incorrectChars = 0
+
+    for (let word of this.paragraph.split(' ')) {
+      if (String(word) === "") { continue }
+      let wordArray: string[] = []
+      for (let letter of word) {
+        wordArray.push(letter)
+      }
+      this.words.push(wordArray)
+    }
+
+    for (let letter of this.paragraph) {
+      this.letters.push(letter)
+    }
+
+    this.currentKey = this.letters[this.currentLetterIndex]
+  }
+  resetText() {
+    let letterElements: any[] = this.letterElements.toArray()
+
+    letterElements.forEach(letter => {
+      letter.nativeElement.className = "p blankKey"
+    })
+
+    this.currentLetterIndex = 0
+    letterElements[0].nativeElement.className = 'p currentKey'
+    this.initializeText()
+  }
+
   enterKey(key: string) {
     if (key === "Space") {
       key = " "
@@ -38,14 +93,14 @@ export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
       return
     }
 
-    this.keyListener.requestChangeTimerState(true)
+    this.communicator.requestChangeTimerState(true)
     // TODO: WPM TEST: WPM is calculated by (characters/5) / time
     // 100 characters in one minute = (100/5)=20, 20/1 = 20 WPM
     // 240 characters in 1.5 minute = (240/5)=48, 48/1.5 = 32 WPM
     // 300 characters in 3 minutes  = (300/5)=60, 60/3 = 20 WPM
 
     // IF calculatingWPM === true { totalChars++
-    if (this.keyListener.checkTrackingWPM()) {
+    if (this.communicator.checkTrackingWPM()) {
       let letterElements: any[] = this.letterElements.toArray()
       // SUBTRACT FROM totalChars AND also SUBTRACT incorrect key IF (the class is incorrectKey)
       if (key === this.currentKey) {
@@ -81,31 +136,17 @@ export class TextComponent implements OnInit, OnDestroy, AfterViewInit {
         this.totalChars++
         this.incorrectChars++
       }
-      this.keyListener.updateChars(this.totalChars, this.incorrectChars)
+      this.communicator.updateChars(this.totalChars, this.incorrectChars)
       if (this.totalChars === this.paragraph.length) {
         console.log("reached end")
-        this.keyListener.requestChangeTimerState(false)
+        this.communicator.requestChangeTimerState(false)
       }
 
     }
   }
 
   ngOnInit() {
-    for (let word of this.paragraph.split(' ')) {
-      if (String(word) === "") { continue }
-      let wordArray: string[] = []
-      for (let letter of word) {
-        wordArray.push(letter)
-      }
-      this.words.push(wordArray)
-    }
-
-    for (let letter of this.paragraph) {
-      this.letters.push(letter)
-    }
-
-    this.currentKey = this.letters[this.currentLetterIndex]
-
+    this.initializeText()
   }
 
   ngAfterViewInit() {

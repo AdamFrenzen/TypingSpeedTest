@@ -2,6 +2,7 @@ import {AfterViewInit, Component, ElementRef, OnInit, TemplateRef, ViewChild} fr
 import {KeyboardListenerService} from "../../services/keyboard-listener.service";
 import {Subscription} from "rxjs";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CommunicatorService} from "../../services/communicator.service";
 
 @Component({
   selector: 'app-timer',
@@ -15,8 +16,8 @@ export class TimerComponent implements OnInit, AfterViewInit{
 
   subscription: Subscription;
 
-  constructor(private keyListener: KeyboardListenerService, private modalService: NgbModal) {
-    this.subscription = this.keyListener.getTimerState().subscribe(state => {
+  constructor(private keyListener: KeyboardListenerService, private communicator: CommunicatorService, private modalService: NgbModal) {
+    this.subscription = this.communicator.getTimerState().subscribe(state => {
       if (!state) {
         this.onTimesUp()
       }
@@ -27,7 +28,14 @@ export class TimerComponent implements OnInit, AfterViewInit{
   }
 
   openModal(modal: TemplateRef<HTMLElement>) {
-    this.modalService.open(modal);
+    this.modalService.open(modal, {
+      backdrop: 'static',
+      keyboard: false,
+    });
+  }
+  closeModal(modal: TemplateRef<NgbModal>) {
+    this.modalService.dismissAll()
+    this.communicator.resetText()
   }
 
   // Credit: Mateusz Rybczonec
@@ -52,10 +60,11 @@ export class TimerComponent implements OnInit, AfterViewInit{
   ACC: number = 0;
 
   onTimesUp() {
-    this.keyListener.setTrackingWPM(false)
+
+    this.communicator.setTrackingWPM(false)
     clearInterval(this.timerInterval!);
 
-    const charInfo = this.keyListener.getChars()
+    const charInfo = this.communicator.getChars()
     this.WPM = (charInfo[0]/5)/(this.timePassed/60);
     this.WPM = Math.round(this.WPM * 100)/100 // ROUND to 2 decimal
     this.CPM = (charInfo[0])/(this.timePassed/60);
@@ -69,7 +78,7 @@ export class TimerComponent implements OnInit, AfterViewInit{
     // if (0 !== this.timerInterval) { return }
     this.timerStart = true
 
-    this.keyListener.setTrackingWPM(true)
+    this.communicator.setTrackingWPM(true)
 
     this.timerInterval = setInterval(() => {
       this.timePassed = this.timePassed += 1;
@@ -116,4 +125,5 @@ export class TimerComponent implements OnInit, AfterViewInit{
     // this.startTimer()
   }
 
+  protected readonly close = close;
 }
